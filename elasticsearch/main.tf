@@ -20,8 +20,8 @@ module "hoge_test_es_ecs_cluster" {
   source = "../modules/ecs/ecs_cluster_on_ec2"
 
   region                = "ap-northeast-1"
-  vpc_id                = "vpc-a1f15dc4"
-  subnet_ids            = "subnet-78c41721,subnet-ce2f96b9"
+  vpc_id                = var.vpc_id
+  subnet_ids            = var.subnet_id
   component             = "cluster-hoge"
   deployment_identifier = "test"
 
@@ -98,14 +98,14 @@ data "aws_iam_policy" "ec2_for_ssm" {
 module "es_ecs_container_instance_sg" {
   source = "../modules/sg"
   name   = "hoge_test_es_ecs_instance_sg"
-  vpc_id = "vpc-a1f15dc4"
+  vpc_id = var.vpc_id
   ingress_config = [
     {
       from_port                = 9200
       to_port                  = 9200
       protocol                 = "tcp"
-      cidr_blocks              = null
-      source_security_group_id  = ["vpc-a1f15dc4"]
+      cidr_blocks              = ["0.0.0.0/0"]
+      source_security_group_id  = null
     },
     {
       from_port                = 5601
