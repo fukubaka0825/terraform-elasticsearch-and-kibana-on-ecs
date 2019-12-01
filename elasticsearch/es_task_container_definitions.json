@@ -1,0 +1,56 @@
+[
+  {
+    "name": "ec-test",
+    "image": "xxxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/hoge-test-es",
+    "cpu": 0,
+    "memory": 60000,
+    "memoryReservation": 60000,
+    "portMappings": [
+      {
+        "containerPort": 9200,
+        "hostPort": 9200,
+        "protocol": "tcp"
+      },
+      {
+        "containerPort": 9300,
+        "hostPort": 9300,
+        "protocol": "tcp"
+      }
+    ],
+    "essential": true,
+    "environment": [
+      {
+        "name": "ES_JAVA_OPTS ",
+        "value": "-Xms8g -Xmx8g "
+      },
+      {
+        "name": "REGION",
+        "value": "ap-northeast-1"
+      }
+    ],
+    "mountPoints": [
+      {
+        "sourceVolume": "esdata",
+        "containerPath": "/usr/share/elasticsearch/data/"
+      }
+    ],
+    "volumesFrom": [],
+    "disableNetworking": false,
+    "readonlyRootFilesystem": false,
+    "ulimits": [
+      {
+        "name": "nofile",
+        "softLimit": 65536,
+        "hardLimit": 65536
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/es-test",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
