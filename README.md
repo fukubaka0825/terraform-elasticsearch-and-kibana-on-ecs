@@ -89,7 +89,7 @@ variable "subnet_id" {
 ```
 ### 7. Deploy other resources
 ```sh
-- terraform deploy
+- terraform apply
 ```
 ### 8. Access http://${CONTAINER_INSTANCE_PUBLIC_IP}:5601 
 Kibana dev-tool makes it possible for us to execute query DSL without curl command.
